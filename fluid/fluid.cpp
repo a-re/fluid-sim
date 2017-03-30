@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <vector>
+#include "fluid_grid.h"
 
 #define WND_HEIGHT 600
 #define WND_WIDTH 600
@@ -30,8 +31,11 @@ int main(int argc, char *argv[]) {
     SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surface);
 
     // debugging code
-//    const unsigned red = SDL_MapRGBA(surface->format, 0x1E, 0x1E, 0x1E, 0xFF);
-//    const unsigned gray = SDL_MapRGBA(surface->format, 0xFA, 0x32, 0x32, 0xFF);
+    const unsigned red = SDL_MapRGBA(surface->format, 0x1E, 0x1E, 0x1E, 0xFF);
+    const unsigned gray = SDL_MapRGBA(surface->format, 0xFA, 0x32, 0x32, 0xFF);
+
+    // Create our fluid grid
+    std::unique_ptr<FluidGrid> fluid(new FluidGrid(surface, WND_HEIGHT, WND_WIDTH));
 
     // Main drawing loop
     bool running = true;
@@ -48,8 +52,7 @@ int main(int argc, char *argv[]) {
         }
 
         // put actual rendering code here
-        unsigned *pixels = (unsigned*) surface->pixels;
-        // TODO: Call FluidGrid render here
+        fluid->step();
 
         SDL_UpdateTexture(tex, NULL, surface->pixels, surface->pitch);
         SDL_RenderClear(renderer);
@@ -57,15 +60,11 @@ int main(int argc, char *argv[]) {
         SDL_RenderPresent(renderer);
     }
 
-    // Clear pointers and destroy SDL resources
+    // Destroy SDL resources
     SDL_FreeSurface(surface);
     SDL_DestroyWindow(screen);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyTexture(tex);
-    surface = nullptr;
-    screen = nullptr;
-    renderer = nullptr;
-    tex = nullptr;
 
     SDL_Quit();
     return 0;
