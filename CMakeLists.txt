@@ -7,7 +7,7 @@ link_directories(/usr/local/lib)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES main.cpp)
+set(SOURCE_FILES fluid/fluid.cpp)
 add_executable(fluid_sim ${SOURCE_FILES})
 
 # Link to SDL

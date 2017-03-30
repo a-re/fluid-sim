@@ -30,8 +30,8 @@ int main(int argc, char *argv[]) {
     SDL_Texture *tex = SDL_CreateTextureFromSurface(renderer, surface);
 
     // debugging code
-    const unsigned red = SDL_MapRGBA(surface->format, 0x1E, 0x1E, 0x1E, 0xFF);
-    const unsigned gray = SDL_MapRGBA(surface->format, 0xFA, 0x32, 0x32, 0xFF);
+//    const unsigned red = SDL_MapRGBA(surface->format, 0x1E, 0x1E, 0x1E, 0xFF);
+//    const unsigned gray = SDL_MapRGBA(surface->format, 0xFA, 0x32, 0x32, 0xFF);
 
     // Main drawing loop
     bool running = true;
@@ -48,13 +48,8 @@ int main(int argc, char *argv[]) {
         }
 
         // put actual rendering code here
-        // START DEBUG
         unsigned *pixels = (unsigned*) surface->pixels;
-        for (int i = 0; i < WND_HEIGHT; i++) {
-            for (int j = 0; j < WND_WIDTH; j++) {
-                pixels[i * WND_WIDTH + j] = j % 3 ? gray : red;
-            }
-        }
+        // TODO: Call FluidGrid render here
 
         SDL_UpdateTexture(tex, NULL, surface->pixels, surface->pitch);
         SDL_RenderClear(renderer);
