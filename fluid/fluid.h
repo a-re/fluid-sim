@@ -7,8 +7,15 @@
 
 // Global macros
 #define SFLOAT double // so we can easily change the precision of our calculations
-#define IDX(i, j) (i + (N + 2) * j) // converts an (x, y) coordinate into the proper index of a 1d array
+#define IDX(i, j) (i + WND_SIZE * j) // converts an (x, y) coordinate into the proper index of a 1d array
 
-int main(int argc, char *argv[]);
+#define WND_SIZE 600
+#define WND_BPP 32 // bits per pixel
+
+#define GRID_SIZE 128
+
+namespace FluidSim {
+    int main(int argc, char *argv[]);
+}
 
 #endif //FLUID_SIM_FLUID_H
